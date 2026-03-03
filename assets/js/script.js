@@ -534,24 +534,33 @@ function initModalProjetos() {
   const modalOverlay = modal.querySelector(".modal-overlay");
   if (!modalClose || !modalOverlay) return;
 
-  // Dados dos projetos (mantido igual)
+  const btnRelatorio = document.getElementById("modalBtnRelatorio");
+  const btnProjetoCompleto = document.getElementById("modalBtnProjetoCompleto");
+
+  // Dados dos projetos
   const projetosData = {
     1: {
-      titulo: "Cartografias das Tensões Urbanas em Manaus",
+      titulo:
+        "Floresta em pé pelas mãos de mulheres agricultoras do Careiro Castanho (AM)",
       subtitulo:
-        "Mapeamento participativo dos conflitos socioambientais urbanos",
+        "Currículos vivos amazônicos em narrativas ecofeministas",
       descricao:
-        "Pesquisa interdisciplinar que visa mapear os conflitos socioambientais urbanos na região metropolitana de Manaus através de metodologias participativas com comunidades locais. O projeto combina abordagens da geografia crítica, antropologia urbana e planejamento territorial.",
+        "O projeto investiga práticas de mulheres agricultoras da região do Careiro Castanho (AM), articulando emergência climática, educação e ecofeminismos. A proposta busca valorizar saberes territoriais e modos de existência que sustentam currículos vivos amazônicos.",
       objetivos: [
-        "Identificar zonas de tensão socioambiental urbana",
-        "Desenvolver metodologias participativas de mapeamento",
-        "Produzir cartografias colaborativas com comunidades",
-        "Elaborar recomendações para políticas públicas",
+        "Mapear narrativas e práticas das mulheres agricultoras em seus territórios",
+        "Fortalecer currículos vivos amazônicos em perspectiva ecofeminista",
+        "Produzir materiais formativos para educação e pesquisa na Amazônia",
+        "Contribuir com ações de cuidado ambiental e justiça socioecológica",
       ],
-      duracao: "Jan 2023 - Dez 2024 (24 meses)",
+      duracao: "36 meses",
       coordenacao: "Prof. Fabiane Andrade",
       financiamento: "CNPq - Edital Universal",
       orcamento: "R$ 180.000,00",
+      links: {
+        relatorio: "",
+        projetoCompleto:
+          "./assets/Arquivos/Projetos/EBOOK_Invencionices-floresteiras.pdf",
+      },
       equipe: [
         { nome: "Fabiane Andrade", funcao: "Coordenadora" },
         { nome: "Hívina Dorzane", funcao: "Pesquisadora" },
@@ -559,20 +568,27 @@ function initModalProjetos() {
       ],
     },
     2: {
-      titulo: "Memórias das guas: Narrativas Ribeirinhas",
+      titulo:
+        "Currículos vivos cultivados por mulheres camponesas amazônidas colombianas",
       subtitulo:
-        "Documentação das memórias e saberes de comunidades ribeirinhas",
+        "Educações ecofeministas, cultura e saberes tradicionais",
       descricao:
-        "Projeto etnográfico que documenta as memórias e saberes tradicionais de comunidades ribeirinhas impactadas por mudanças ambientais no Amazonas. A pesquisa utiliza metodologias narrativas e visuais para preservar e valorizar os conhecimentos locais.",
+        "A proposta se vincula à área prioritária de educação, cultura, povos e saberes tradicionais. O estudo investiga currículos vivos cultivados por mulheres amazônidas de coletivos camponeses, articulando experiências de formação, território e práticas ecofeministas.",
       objetivos: [
-        "Documentar memórias e saberes tradicionais",
-        "Analisar impactos das mudanças ambientais",
-        "Preservar patrimônio cultural imaterial",
-        "Fortalecer identidades comunitárias",
+        "Analisar práticas educativas de mulheres camponesas amazônidas",
+        "Valorizar saberes tradicionais e modos de vida territoriais",
+        "Produzir referências para formações ecofeministas em contexto amazônico",
+        "Fortalecer redes de pesquisa e colaboração entre coletivos",
       ],
-      duracao: "Mar 2023 - Fev 2025 (23 meses)",
+      duracao: "24 meses",
       coordenacao: "Prof. Mônica de Oliveira Costa",
       financiamento: "CNPq - Edital Universal",
+      orcamento: "Em execução",
+      links: {
+        relatorio: "",
+        projetoCompleto:
+          "./assets/Arquivos/Projetos/Em andamento/projeto curriculos vivos camponesas.pdf",
+      },
       equipe: [
         { nome: "Mônica de Oliveira Costa", funcao: "Coordenadora" },
         { nome: "Caroline Barroncas de Oliveira", funcao: "Pesquisadora" },
@@ -606,6 +622,35 @@ function initModalProjetos() {
     if (el) el.textContent = value ?? "";
   }
 
+  function configurarBotaoAcao(botao, href, opcoes = {}) {
+    if (!botao) return;
+
+    const { download = false, tituloIndisponivel = "Documento indisponível no momento." } =
+      opcoes;
+
+    if (href) {
+      botao.setAttribute("href", href);
+      botao.removeAttribute("aria-disabled");
+      botao.classList.remove("btn-indisponivel");
+      botao.removeAttribute("title");
+      botao.tabIndex = 0;
+
+      if (download) {
+        botao.setAttribute("download", "");
+      } else {
+        botao.removeAttribute("download");
+      }
+      return;
+    }
+
+    botao.removeAttribute("href");
+    botao.removeAttribute("download");
+    botao.setAttribute("aria-disabled", "true");
+    botao.classList.add("btn-indisponivel");
+    botao.setAttribute("title", tituloIndisponivel);
+    botao.tabIndex = -1;
+  }
+
   function abrirModal(projetoId) {
     const projeto = projetosData[projetoId];
     if (!projeto) return;
@@ -617,6 +662,16 @@ function initModalProjetos() {
     setText("modalCoordenacao", projeto.coordenacao);
     setText("modalFinanciamento", projeto.financiamento);
     setText("modalOrcamento", projeto.orcamento);
+
+    configurarBotaoAcao(btnRelatorio, projeto.links?.relatorio, {
+      download: true,
+      tituloIndisponivel: "Relatório ainda não disponível para este projeto.",
+    });
+
+    configurarBotaoAcao(btnProjetoCompleto, projeto.links?.projetoCompleto, {
+      download: false,
+      tituloIndisponivel: "Documento completo ainda não disponível para este projeto.",
+    });
 
     // Objetivos
     const objetivosList = document.getElementById("modalObjetivos");

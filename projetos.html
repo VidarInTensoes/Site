@@ -84,11 +84,21 @@
         <!-- Projeto 1 -->
         <article class="card-projeto-modal" data-projeto="1">
           <div class="card-visual">
-            <div class="projeto-thumbnail">
-              <img
-                src="./assets/images/Projetos/FLORESTA EM PÉ PELAS MÃOS DE MULHERES AGRICULTORAS DO CAREIRO.png"
-                alt="Cartografias Urbanas"
-              />
+            <div
+              class="projeto-thumbnail projeto-thumbnail-conceito"
+              role="img"
+              aria-label="Composição conceitual do projeto Floresta em pé"
+            >
+              <div class="conceito-camadas" aria-hidden="true">
+                <span class="conceito-orbe orbe-um"></span>
+                <span class="conceito-orbe orbe-dois"></span>
+                <span class="conceito-orbe orbe-tres"></span>
+              </div>
+              <div class="conceito-conteudo">
+                <span class="conceito-kicker">Projeto de Campo</span>
+                <h4>Floresta em pé</h4>
+                <p>Mulheres agricultoras, território e currículos vivos amazônicos.</p>
+              </div>
               <div class="thumbnail-overlay">
                 <span class="view-details">Ver Detalhes</span>
               </div>
@@ -145,11 +155,26 @@
         <!-- Projeto 2 -->
         <article class="card-projeto-modal" data-projeto="2">
           <div class="card-visual">
-            <div class="projeto-thumbnail">
-              <img
-                src="./assets/images/Projetos/Currículos vivos cultivados por mulheres camponesas amazônidas.png"
-                alt="Memórias Ribeirinhas"
-              />
+            <div
+              class="projeto-thumbnail projeto-thumbnail-conceito conceito-curriculos variante-artistica"
+              role="img"
+              aria-label="Composição conceitual do projeto Currículos vivos"
+            >
+              <div class="conceito-camadas" aria-hidden="true">
+                <span class="conceito-orbe orbe-um"></span>
+                <span class="conceito-orbe orbe-dois"></span>
+                <span class="conceito-orbe orbe-tres"></span>
+              </div>
+              <div class="conceito-conteudo">
+                <span class="conceito-kicker">Projeto Internacional</span>
+                <h4>Currículos vivos</h4>
+                <p>Mulheres camponesas amazônidas e educações ecofeministas em diálogo.</p>
+                <div class="conceito-alternativas" aria-hidden="true">
+                  <span>Educação</span>
+                  <span>Território</span>
+                  <span>Saberes</span>
+                </div>
+              </div>
               <div class="thumbnail-overlay">
                 <span class="view-details">Ver Detalhes</span>
               </div>
@@ -341,7 +366,9 @@
             <div class="modal-footer">
               <a
                 href="./assets/Arquivos/Projetos/relatorio-cartografias.pdf"
+                id="modalBtnRelatorio"
                 class="btn btn-secundario"
+                download=""
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -350,8 +377,8 @@
               </a>
               <a
                 href="./assets/Arquivos/Projetos/Em andamento/projeto curriculos vivos camponesas.pdf"
+                id="modalBtnProjetoCompleto"
                 class="btn btn-primario"
-                download=""
                 target="_blank"
                 rel="noopener noreferrer"
               >
